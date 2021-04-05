@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { LinkContainer } from "react-router-bootstrap";
 import {
   Container,
@@ -10,12 +10,20 @@ import {
   Card,
   Badge,
 } from "react-bootstrap";
-import products from "../fakedata/products.json";
 import Rating from "../components/Rating";
+import axios from "axios";
 
 function ProductPage(props) {
-  const product = products.find((p) => p._id === props.match.params.id);
-
+  const [product, setProduct] = useState({});
+  useEffect(() => {
+    async function fetchProduct() {
+      const { data } = await axios.get(
+        `http://localhost:8000/api/product/${props.match.params.id}`
+      );
+      setProduct(data);
+    }
+    fetchProduct();
+  });
   return (
     <Container>
       <LinkContainer to="/">
@@ -55,7 +63,7 @@ function ProductPage(props) {
                 <Row>
                   <Col>Price: </Col>
                   <Col>
-                    <strong>${product.price}</strong>
+                    <strong>Rs. {product.price}</strong>
                   </Col>
                 </Row>
               </ListGroup.Item>
