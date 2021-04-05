@@ -23,7 +23,7 @@ function ProductPage(props) {
       setProduct(data);
     }
     fetchProduct();
-  });
+  }, []);
   return (
     <Container>
       <LinkContainer to="/">
