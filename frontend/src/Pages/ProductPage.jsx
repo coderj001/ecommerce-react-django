@@ -18,7 +18,7 @@ function ProductPage(props) {
   useEffect(() => {
     async function fetchProduct() {
       const { data } = await axios.get(
-        `http://localhost:8000/api/product/${props.match.params.id}`
+        `/api/product/${props.match.params.id}`
       );
       setProduct(data);
     }

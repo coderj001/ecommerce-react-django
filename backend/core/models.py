@@ -82,6 +82,10 @@ class OrderItem(models.Model):
     image = models.CharField(max_length=200, null=True, blank=True)
     _id = models.AutoField(primary_key=True, editable=False)
 
+    class Meta:
+        verbose_name = "OrderItem"
+        verbose_name_plural = "OrderItems"
+
     def __str__(self):
         return str(self.name)
 
@@ -97,6 +101,10 @@ class ShippingAddress(models.Model):
     shippingPrice = models.DecimalField(
         max_digits=7, decimal_places=2, null=True, blank=True)
     _id = models.AutoField(primary_key=True, editable=False)
+
+    class Meta:
+        verbose_name = "ShippingAddress"
+        verbose_name_plural = "ShippingAddresses"
 
     def __str__(self):
         return str(self.address)

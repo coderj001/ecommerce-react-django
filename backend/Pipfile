@@ -13,6 +13,9 @@ pillow = "*"
 django-linter = "*"
 pylint = "*"
 isort = "*"
+ipython = "*"
+ipdb = "*"
+autopep8 = "*"
 
 [requires]
 python_version = "3.8"
