@@ -16,10 +16,10 @@ function Product({ product }) {
         {/* <Card.Text>{product.description}</Card.Text> */}
         <Card.Text as="div">
           <div className="my-3">
-            {product.rating} from {product.numReviews} reviews
+            {product.rating} from {product.numReview} reviews
             <Rating
               value={product.rating}
-              text={`${product.numReviews} reviews`}
+              text={`${product.numReview} reviews`}
               color={`#f8e825`}
             />
           </div>
