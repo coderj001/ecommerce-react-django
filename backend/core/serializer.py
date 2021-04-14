@@ -6,6 +6,7 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from core.models import Order, OrderItem, Product, Review, ShippingAddress
 
 
+# Users Serializer
 class UserSerializer(ModelSerializer):
     _id = SerializerMethodField(read_only=True)
     isAdmin = SerializerMethodField(read_only=True)
@@ -33,12 +34,6 @@ class UserSerializerWithToken(UserSerializer):
         return str(token.access_token)
 
 
-class ProductSerializer(ModelSerializer):
-    class Meta:
-        model = Product
-        fields = '__all__'
-
-
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
     def validate(self, attrs):
         data = super().validate(attrs)
@@ -48,3 +43,14 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
             data[k] = v
 
         return data
+
+# Users Serializer - end
+
+# Product Serializer
+
+
+class ProductSerializer(ModelSerializer):
+    class Meta:
+        model = Product
+        fields = '__all__'
+# Product Serializer - end
