@@ -23,7 +23,8 @@ function Navigaton() {
               </LinkContainer>
               <LinkContainer to="/login">
                 <Nav.Link>
-                  <FontAwesomeIcon icon={faSignInAlt} /> Login
+                  <FontAwesomeIcon icon={faSignInAlt} />
+                  Login
                 </Nav.Link>
               </LinkContainer>
             </Nav>
