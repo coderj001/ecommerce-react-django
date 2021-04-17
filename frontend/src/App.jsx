@@ -7,6 +7,8 @@ import LoginPage from "./Pages/LoginPage";
 import CartPage from "./Pages/CartPage";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
+import RegisterPage from "./Pages/RegisterPage";
+import UserProfilePage from "./Pages/UserProfilePage";
 
 function App() {
   return (
@@ -16,9 +18,11 @@ function App() {
         <Container>
           <Switch>
             <Route path="/" component={HomePage} exact />
+            <Route path="/login" component={LoginPage} />
+            <Route path="/register" component={RegisterPage} />
+            <Route path="/profile" component={UserProfilePage} />
             <Route path="/product/:id" component={ProductPage} />
             <Route path="/cart/:id?" component={CartPage} />
-            <Route path="/login" component={LoginPage} />
           </Switch>
         </Container>
       </main>
