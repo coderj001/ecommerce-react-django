@@ -29,7 +29,7 @@ function UserProfilePage({ history }) {
         setEmail(user.email);
       }
     }
-  }, [dispatch, userInfo, history, user]);
+  }, []);
 
   const submitHandler = (e) => {
     e.preventDefault();

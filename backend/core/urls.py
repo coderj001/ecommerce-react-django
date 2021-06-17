@@ -1,10 +1,16 @@
 from django.urls import path
 
-from core.views import (MyTokenObtainPairView, getProduct, getProducts,
-                        getUserProfile, getUsers, registerUser,
-                        updateUserProfile)
+from core.views import (
+    MyTokenObtainPairView,
+    getProduct,
+    getProducts,
+    getUserProfile,
+    getUsers,
+    registerUser,
+    updateUserProfile
+)
 
-APP_NAME = 'core'
+app_name = 'core'
 
 urlpatterns = [
     # user urls - auth

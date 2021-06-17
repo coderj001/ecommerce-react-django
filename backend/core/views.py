@@ -5,12 +5,22 @@ from rest_framework.response import Response
 from rest_framework.status import HTTP_400_BAD_REQUEST
 from rest_framework_simplejwt.views import TokenObtainPairView
 
-from core.models import Order, OrderItem, Product, Review, ShippingAddress
-from core.serializer import (MyTokenObtainPairSerializer, ProductSerializer,
-                             UserSerializer, UserSerializerWithToken)
-
+from core.models import (
+    Order,
+    OrderItem,
+    Product,
+    Review,
+    ShippingAddress
+)
+from core.serializer import (
+    MyTokenObtainPairSerializer,
+    ProductSerializer,
+    UserSerializer,
+    UserSerializerWithToken
+)
 
 # Users views
+
 
 class MyTokenObtainPairView(TokenObtainPairView):
     serializer_class = MyTokenObtainPairSerializer
@@ -20,13 +30,19 @@ class MyTokenObtainPairView(TokenObtainPairView):
 @permission_classes([IsAuthenticated])
 def updateUserProfile(request):
     user = request.user
-    serializer = UserSerializerWithToken(user, many=False)
     data = request.data
-    user.first_name = data.get('name')
-    user.email = data.get('email')
-    if data.get('password') != '':
-        user.set_password(data.get('password'))
+    first_name = data.get('name')
+    username = data.get('email')
+    password = data.get('password')
+
+    user.first_name = first_name
+
+    if username:
+        user.username = username
+    if password != '':
+        user.set_password(password)
     user.save()
+    serializer = UserSerializerWithToken(user, many=False)
     return Response(serializer.data)
 
 
@@ -53,7 +69,7 @@ def registerUser(request):
         user = User.objects.create(
             first_name=data.get('name'),
             username=data.get('email'),
-            email=data.get('email'),
+            email=data.get('email')
         )
         user.set_password(data.get('password'))
         user.save()
