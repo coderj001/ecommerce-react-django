@@ -9,6 +9,7 @@ import Footer from "./components/Footer";
 import Header from "./components/Header";
 import RegisterPage from "./Pages/RegisterPage";
 import UserProfilePage from "./Pages/UserProfilePage";
+import ShippingPage from "./Pages/ShippingPage";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
             <Route path="/login" component={LoginPage} />
             <Route path="/register" component={RegisterPage} />
             <Route path="/profile" component={UserProfilePage} />
+            <Route path="/shipping" component={ShippingPage} />
             <Route path="/product/:id" component={ProductPage} />
             <Route path="/cart/:id?" component={CartPage} />
           </Switch>
