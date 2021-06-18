@@ -3,7 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { Form, Button, Row, Col } from "react-bootstrap";
 import Loader from "../components/Loader";
 import Message from "../components/Message";
-import { getUserDetails } from "../actions/userActions";
+import { getUserDetails, updateUserProfile } from "../actions/userActions";
+import { USER_UPDATE_PROFILE_RESET } from "../constants/userConstants";
 
 function UserProfilePage({ history }) {
   const [name, setName] = useState("");
@@ -14,36 +15,49 @@ function UserProfilePage({ history }) {
 
   const dispatch = useDispatch();
 
-  const { loading, user, error } = useSelector((state) => state.userDetails);
+  const userDetails = useSelector((state) => state.userDetails);
+  const { loading, user, error } = userDetails;
 
   const { userInfo } = useSelector((state) => state.userLogin);
+
+  const userUpdateProfile = useSelector((state) => state.userUpdateProfile);
+  const { success } = userUpdateProfile;
 
   useEffect(() => {
     if (!userInfo) {
       history.push("/login");
     } else {
-      if (!user || !user.name) {
+      if (!user || !user.name || success) {
+        dispatch({ type: USER_UPDATE_PROFILE_RESET });
         dispatch(getUserDetails("profile"));
       } else {
         setName(user.name);
         setEmail(user.email);
       }
     }
-  }, []);
+  }, [dispatch, history, userInfo, user, success]);
 
   const submitHandler = (e) => {
     e.preventDefault();
     if (password !== confirmPassword) {
       setMessage("Passwords Don't Match");
     } else {
-      console.log("Updating Profile...");
+      dispatch(
+        updateUserProfile({
+          _id: user._id,
+          name: name,
+          email: email,
+          password: password,
+        })
+      );
+      setMessage("");
     }
   };
 
   return (
     <Row>
       <Col md={3}>
-        <h2>User Profile</h2>
+        <h3>User Profile</h3>
 
         {message && <Message variant="danger">{message}</Message>}
         {error && <Message variant="danger">{error}</Message>}

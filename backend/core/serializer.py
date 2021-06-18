@@ -16,16 +16,24 @@ from core.models import (
 class UserSerializer(ModelSerializer):
     _id = SerializerMethodField(read_only=True)
     isAdmin = SerializerMethodField(read_only=True)
+    name = SerializerMethodField()
+    email = SerializerMethodField()
 
     class Meta:
         model = get_user_model()
-        fields = ('_id', 'username', 'email', 'isAdmin')
+        fields = ('_id', 'name', 'email', 'isAdmin')
 
     def get__id(self, obj):
         return obj.id
 
     def get_isAdmin(self, obj):
         return obj.is_staff
+
+    def get_name(self, obj):
+        return obj.first_name
+
+    def get_email(self, obj):
+        return obj.username
 
 
 class UserSerializerWithToken(UserSerializer):
