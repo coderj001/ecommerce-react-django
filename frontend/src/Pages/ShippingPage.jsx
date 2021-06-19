@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Form, Button } from "react-bootstrap";
 import FormContainer from "../components/FormContainer";
+import CheckoutSteps from "../components/CheckoutSteps";
 import { saveShippingAddress } from "../actions/cartActions";
 
 function ShippingPage({ history }) {
@@ -16,7 +17,6 @@ function ShippingPage({ history }) {
   const [country, setCountry] = useState(shippingAddress.country);
   function submitHandler(e) {
     e.preventDefault();
-    console.log("submit");
     dispatch(
       saveShippingAddress({
         address,
@@ -28,7 +28,8 @@ function ShippingPage({ history }) {
     history.push("/payment");
   }
   return (
-    <div>
+    <>
+      <CheckoutSteps step1 step2 />
       <FormContainer>
         <h1>Shipping</h1>
         <Form onSubmit={submitHandler}>
@@ -77,7 +78,7 @@ function ShippingPage({ history }) {
           </Button>
         </Form>
       </FormContainer>
-    </div>
+    </>
   );
 }
 

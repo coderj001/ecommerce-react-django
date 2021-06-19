@@ -10,6 +10,8 @@ import Header from "./components/Header";
 import RegisterPage from "./Pages/RegisterPage";
 import UserProfilePage from "./Pages/UserProfilePage";
 import ShippingPage from "./Pages/ShippingPage";
+import PaymentPage from "./Pages/PaymentPage";
+import PlaceOrderPage from "./Pages/PlaceOrderPage";
 
 function App() {
   return (
@@ -23,6 +25,8 @@ function App() {
             <Route path="/register" component={RegisterPage} />
             <Route path="/profile" component={UserProfilePage} />
             <Route path="/shipping" component={ShippingPage} />
+            <Route path="/payment" component={PaymentPage} />
+            <Route path="/placeorder" component={PlaceOrderPage} />
             <Route path="/product/:id" component={ProductPage} />
             <Route path="/cart/:id?" component={CartPage} />
           </Switch>
