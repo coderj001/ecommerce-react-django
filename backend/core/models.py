@@ -67,11 +67,35 @@ class Order(models.Model):
         related_name='order',
         on_delete=models.CASCADE
     )
-    paymentMethord = models.CharField(max_length=255, blank=True, null=True)
+    paymentMethord = models.CharField(
+        max_length=255,
+        blank=True,
+        null=True
+    )
     taxPrice = models.DecimalField(
-        max_digits=7, decimal_places=2, blank=True, null=True)
+        max_digits=7,
+        decimal_places=2,
+        blank=True,
+        null=True
+    )
+    shippingPrice = models.DecimalField(
+        max_digits=7,
+        decimal_places=2,
+        blank=True,
+        null=True
+    )
+    totalPrice = models.DecimalField(
+        max_digits=7,
+        decimal_places=2,
+        blank=True,
+        null=True
+    )
     isPaid = models.BooleanField(default=False)
-    createdAt = models.DateTimeField(auto_now_add=False, blank=True, null=True)
+    createdAt = models.DateTimeField(
+        auto_now_add=False,
+        blank=True,
+        null=True
+    )
     isDeliverd = models.BooleanField(default=False)
     deliverdAt = models.DateTimeField(
         auto_now_add=False,
@@ -129,10 +153,26 @@ class ShippingAddress(models.Model):
         null=True,
         blank=True
     )
-    address = models.CharField(max_length=200, null=True, blank=True)
-    city = models.CharField(max_length=200, null=True, blank=True)
-    postalCode = models.CharField(max_length=200, null=True, blank=True)
-    country = models.CharField(max_length=200, null=True, blank=True)
+    address = models.CharField(
+        max_length=200,
+        null=True,
+        blank=True
+    )
+    city = models.CharField(
+        max_length=200,
+        null=True,
+        blank=True
+    )
+    pincode = models.CharField(
+        max_length=200,
+        null=True,
+        blank=True
+    )
+    country = models.CharField(
+        max_length=200,
+        null=True,
+        blank=True
+    )
     shippingPrice = models.DecimalField(
         max_digits=7,
         decimal_places=2,

@@ -16,7 +16,8 @@ from core.serializer import (
     MyTokenObtainPairSerializer,
     ProductSerializer,
     UserSerializer,
-    UserSerializerWithToken
+    UserSerializerWithToken,
+    OrderSerializer
 )
 
 # Users views
@@ -100,4 +101,58 @@ def getProduct(request, id):
 # Products views - end
 
 # Order views
+
+
+@api_view(['POST'])
+@permission_classes(['IsAuthenticated'])
+def addOrderItem(request):
+    user = request.user
+    data = request.data
+
+    orderItems = data['orderItems']
+
+    if orderItems and len(orderItems) == 0:
+        return Response(
+            {'detail': 'No Order Items'},
+            status=HTTP_400_BAD_REQUEST
+        )
+    else:
+        # (1): Create Order
+        order = Order.objects.create(
+            user=user,
+            paymentMethord=data.get('paymentMethord'),
+            taxPrice=data.get('taxPrice'),
+            shippingPrice=data.get('shippingPrice'),
+            totalPrice=data.get('totalPrice')
+        )
+        # (2): Shipping Address
+        shipping = ShippingAddress.objects.create(
+            order=order,
+            address=data.get('shippingAddress').get('address'),
+            city=data.get('shippingAddress').get('city'),
+            pincode=data.get('shippingAddress').get('pincode'),
+            country=data.get('shippingAddress').get('country'),
+        )
+        # (3): Create OrderItem and set order to orderItems relationship
+        for item in orderItems:
+            product = Product.objects.get(_id=item.get('product'))
+            item = OrderItem.objects.create(
+                product=product,
+                order=order,
+                name=product.name,
+                qty=item.get('qtn'),
+                price=item.get('price'),
+                image=product.image.url
+            )
+
+            # (4) Update Stock
+
+            product.countInStock -= item.qty
+            product.save()
+
+    serializer = OrderSerializer(order, many=True)
+
+    return Response(serializer.data)
+
+
 # Order views - end

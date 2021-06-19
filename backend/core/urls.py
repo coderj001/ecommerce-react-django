@@ -7,7 +7,8 @@ from core.views import (
     getUserProfile,
     getUsers,
     registerUser,
-    updateUserProfile
+    updateUserProfile,
+    addOrderItem
 )
 
 app_name = 'core'
@@ -25,4 +26,5 @@ urlpatterns = [
     path('product/<int:id>/', getProduct, name="get-product"),
 
     # orders urls
+    path('orders/add', addOrderItem, name="order-add"),
 ]
